@@ -105,11 +105,16 @@ window.__ModuleLoader__.load({
     return {
       inject: ['slots'],
       apply(ctx) {
-        // 两个都是 single slot：占住就替换掉壳自带的同色鲸鱼 / 动画鲸鱼。
-        // 嵌套 inject 是为了在 slot 声明撤销时一起撤离，不留下半个品牌。
+        // `sidebar.brand.mark` 不是空的：official 构建里 `dsh-client-ui-brand-official`
+        // 已经先占住了它（侧栏那只 +「deepseek HARNESS」字标）。single slot 的
+        // 规则是“按 priority 升序排，只有第一条是 active”，所以默认 priority 0
+        // 只会排在它后面、被静默忽略——这正是“主页面变了、侧栏没变”的原因。
+        // -1 让我们排在它前面成为 active；两条都在，撤销时按 slot 常规规则回退。
         ctx.slots.inject('sidebar.brand.mark', () =>
-          ctx.slots.register({ name: 'sidebar.brand.mark' }, PeakHueMark),
+          ctx.slots.register({ name: 'sidebar.brand.mark', priority: -1 }, PeakHueMark),
         )
+        // hero 那只没有别的占用者（壳用 renderSlot 的 fallback 画动画鲸鱼），
+        // 正常注册即可接管。
         ctx.slots.inject('conversation.hero.brand.mark', () =>
           ctx.slots.register({ name: 'conversation.hero.brand.mark' }, PeakHueMark),
         )

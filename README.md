@@ -18,6 +18,11 @@
 - `sidebar.brand.mark` — 侧栏展开时的 mark 和收起后的 rail；
 - `conversation.hero.brand.mark` — 空白会话标题前的那只鲸鱼。
 
+> **侧栏为什么要 `priority: -1`**：single slot 的规则是按 `priority` 升序排、
+> 只让第一条 active。official 构建里 `dsh-client-ui-brand-official` 已经先占了
+> `sidebar.brand.mark`（侧栏那只 +「deepseek HARNESS」字标），默认 priority 0
+> 注册只会排在它后面被静默忽略——表现就是“主页面变了、侧栏没变”。
+
 两个 mark 都用官方鲸鱼轮廓的同一份 path 画出来，`fill: currentColor`，
 颜色每 15 秒按 `Asia/Shanghai` 重算（切回前台也会立刻重算，过整点后最多
 十几秒变过来）。不依赖浏览器本地时区，不联网，不写任何存储。
