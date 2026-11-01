@@ -1,0 +1,4 @@
+# dsh-peak-hue: 一行纯客户端插件，没有 host 逻辑、没有 config。
+- insert:
+    - id: dsh-peak-hue
+      name: dsh-peak-hue

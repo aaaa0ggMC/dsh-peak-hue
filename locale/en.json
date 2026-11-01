@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Peak Hue",
+    "description": "Tints the whale mark blue off-peak and red during DeepSeek's peak-pricing hours (09:00–12:00, 14:00–18:00 Beijing time)."
+  }
+}
